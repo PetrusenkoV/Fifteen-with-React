@@ -9,8 +9,11 @@ class Board extends Component {
     this.state = {
       boardState: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,0]     
     };
-    this.shuffleBoardState(this.state.boardState);   
   }   
+
+  componentDidMount(){
+    this.shuffleBoardState(this.state.boardState);
+  }
 
   getBlankPosition(){
     return this.state.boardState.indexOf(0);
@@ -70,7 +73,10 @@ class Board extends Component {
     if(this.isBoardInInitialState())
     {
       return(
-        <h1>Congratulations!</h1>
+        <div>
+          <h1>Congratulations!</h1>
+          <input type="button" onClick={this.newGameHandler.bind(this)} id="NewGame" value="New Game"/>
+        </div>
       )
     }
     else{
@@ -91,6 +97,10 @@ class Board extends Component {
     return true;
   }
 
+  newGameHandler(){
+    this.shuffleBoardState(this.state.boardState);
+  }
+
   shuffleBoardState(boardState) {
   let currentIndex = boardState.length, temporaryValue, randomIndex;
 
@@ -104,7 +114,7 @@ class Board extends Component {
     boardState[randomIndex] = temporaryValue;
   }
 
-  return boardState;
+  this.setState({boardState});
 }
 
   cheat(){
